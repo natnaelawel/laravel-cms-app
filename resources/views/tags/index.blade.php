@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="d-flex justify-content-end mb-2">
-                <a href="{{ route('categories.create') }}" class="btn btn-success float-right">Add Category</a>
+                <a href="{{ route('tags.create') }}" class="btn btn-success float-right">Add Tag</a>
             </div>
             <div class="card card-default">
-                <div class="card-header">Categories</div>
+                <div class="card-header">Tags</div>
 
                 <div class="card-body">
                     <table class="table">
@@ -21,18 +21,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($tags as $tag)
                                 <tr>
                                     <td>{{ $loop->index + 1}}</td>
-                                    <td>{{ $category->name}}</td>
+                                    <td>{{ $tag->name}}</td>
                                     <td>
                                         {{-- if we call the posts() it will give a query builder
-                                            for example $category->posts()->where('id', $category_id)->get() --}}
-                                        {{$category->posts->count()}}
+                                            for example $tag->posts()->where('id', $tag_id)->get() --}}
+                                        {{$tag->posts->count()}}
                                     </td>
                                     <td class="d-flex justify-content-end">
-                                        <a href="{{route('categories.edit', $category->id)}}" class="btn btn-sm btn-info mx-3 text-white">Edit</a>
-                                        <a type="button" class="btn btn-danger btn-sm text-white" onclick="handleDelete({{ $category->id}})" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                        <a href="{{route('tags.edit', $tag->id)}}" class="btn btn-sm btn-info mx-3 text-white">Edit</a>
+                                        <a type="button" class="btn btn-danger btn-sm text-white" onclick="handleDelete({{ $tag->id}})" data-toggle="modal" data-target="#deleteModal">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -48,13 +48,13 @@
                             <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalLabel">Delete Category</h5>
+                                <h5 class="modal-title" id="deleteModalLabel">Delete Tag</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
                                 <div class="modal-body text-center text-bold alert alert-danger">
-                                        Are You Sure You want to Delete this category?
+                                        Are You Sure You want to Delete this tag?
                                 </div>
                                 <div class="modal-footer">
 
@@ -76,8 +76,8 @@
     <script>
         function handleDelete(id){
             // var form = document.getElementById('#deleteForm');
-            // form.action = '/categories/'+id;
-            $('#deleteForm').attr('action', '/categories/'+id);
+            // form.action = '/tags/'+id;
+            $('#deleteForm').attr('action', '/tags/'+id);
             $('#deleteModal').modal('show');
         }
     </script>

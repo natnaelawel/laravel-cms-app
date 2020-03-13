@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="d-flex justify-content-end mb-2">
                 <a href="{{ route('posts.create') }}" class="btn btn-success float-right">Add Post</a>
             </div>
@@ -17,6 +17,7 @@
                             <tr>
                                 <th>Image</th>
                                 <th>Title</th>
+                                <th>Category</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -26,6 +27,7 @@
                                     {{-- <td>{{ $loop->index + 1}}</td> --}}
                                     <td><img width="120px" height="100px"  src="{{ asset($post->image) }}" alt="post-image"></td>
                                     <td>{{ $post->title}}</td>
+                                    <td><a href="{{ route('categories.edit', $post->category->id) }}">{{$post->category->name}}</a></td>
 
                                     <td class="d-flex justify-content-center">
                                         @if($post->trashed())

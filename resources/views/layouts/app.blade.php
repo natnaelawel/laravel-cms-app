@@ -97,6 +97,9 @@
                                 <li class="list-group-item">
                                     <a href="{{route('categories.index')}}">Category</a>
                                 </li>
+                                <li class="list-group-item">
+                                    <a href="{{route('tags.index')}}">Tag</a>
+                                </li>
                             </ul>
                             <ul class="list-group mt-5">
                                 <li class="list-group-item">
