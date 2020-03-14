@@ -105,6 +105,10 @@ class PostController extends Controller
 
             $data['image'] = $image;
         }
+        if($request->tags){
+            $post->tags()->sync($request->tags);
+        }
+
         $post->update($data);
         session()->flash('success','Post Updated Successfully');
         return redirect(route('posts.index'));

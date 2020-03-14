@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // with the help of resource
 
 // we can group middleware routes together using
-// Route::middleware(['aut'])->group(function(){
+// Route::middleware(['auth'])->group(function(){
 //  then all routes like below
 //})
 
@@ -35,4 +36,10 @@ Route::put('posts/trashed/{post}', 'PostController@restore')->name('trashed-post
 // Route::resource('posts', 'PostController');
 Route::resource('posts', 'PostController')->middleware(['auth']);
 
+Route::middleware(['auth', 'admin'])->group(function(){
+    Route::put('users/profile', 'UsersController@update')->name('users.update-profile');
+    Route::get('users/profile', 'UsersController@edit')->name('users.edit-profile');
+    Route::get('users', 'UsersController@index')->name('users.index');
+    Route::put('users/{user}/make-admin', 'UsersController@makeAdmin')->name('users.make-admin');
+});
 
