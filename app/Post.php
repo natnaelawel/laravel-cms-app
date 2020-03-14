@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'description', 'content','published_at', 'image', 'category_id'];
+    protected $fillable = ['title', 'description', 'content','published_at', 'image', 'category_id','user_id'];
 
     use SoftDeletes;
 
@@ -22,5 +22,8 @@ class Post extends Model
     }
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

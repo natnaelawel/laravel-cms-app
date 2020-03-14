@@ -53,6 +53,7 @@ class PostController extends Controller
             'description' => $request->description,
             'content' => $request->content,
             'published_at'=> $request->pub_date,
+            'user_id' => auth()->user()->id,
             'category_id' => $request->category_id,
             'image' => $image
         ]);

@@ -1,100 +1,101 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.blog')
+@section('title')
+    Home
+@endsection
 
-        <title>Laravel</title>
+@section('header')
+<header class="header text-center text-white" style="background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%);">
+    <div class="container">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+          <h1>Latest Blog Posts</h1>
+          <p class="lead-2 opacity-90 mt-6">Read and get updated on how we progress</p>
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Nathaniel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
         </div>
-    </body>
-</html>
+      </div>
+
+    </div>
+  </header><!-- /.header -->
+@endsection
+@section('main-content')
+ <div class="section bg-gray">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-xl-9">
+              <div class="row gap-y">
+                @foreach ($posts as $post)
+                    <div class="col-md-6">
+                        <div class="card border hover-shadow-6 mb-6 d-block">
+                            <a href="#"><img class="card-img-top" src="{{asset($post->image)}}" alt="Card image cap"></a>
+                            <div class="p-6 text-center">
+                            <p><a class="small-5 text-lighter text-uppercase ls-2 fw-400" href=""> {{ $post->category->name   }}</a></p>
+                            <h5 class="mb-0"><a class="text-dark" href="{{ route('blog.show', $post->id) }} ">{{$post->title}}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+              </div>
+
+
+              <nav class="flexbox mt-30">
+                <a class="btn btn-white disabled"><i class="ti-arrow-left fs-9 mr-4"></i> Newer</a>
+                <a class="btn btn-white" href="#">Older <i class="ti-arrow-right fs-9 ml-4"></i></a>
+              </nav>
+            </div>
+
+
+
+            <div class="col-md-4 col-xl-3">
+              <div class="sidebar px-4 py-md-0">
+
+                <h6 class="sidebar-title">Search</h6>
+                <form class="input-group" target="#" method="GET">
+                  <input type="text" class="form-control" name="s" placeholder="Search">
+                  <div class="input-group-addon">
+                    <span class="input-group-text"><i class="ti-search"></i></span>
+                  </div>
+                </form>
+
+                <hr>
+
+                <h6 class="sidebar-title">Categories</h6>
+                <div class="row link-color-default fs-14 lh-24">
+                    @foreach ($categories as $category)
+                        <div class="col-6"><a href="#">{{ $category->name }}</a></div>
+                    @endforeach
+
+                </div>
+
+                <hr>
+
+                <h6 class="sidebar-title">Top posts</h6>
+                @foreach ($posts as $post)
+                     <a class="media text-default align-items-center mb-5" href="blog-single.html">
+                     <img class="rounded w-65px mr-4" src="{{asset($post->image)}}">
+                        <p class="media-body small-2 lh-4 mb-0">{{ $post->title }}</p>
+                    </a>
+
+                @endforeach
+                <hr>
+                <h6 class="sidebar-title">Tags</h6>
+                <div class="gap-multiline-items-1">
+                    @foreach ($tags as $tag)
+                        <a class="badge badge-secondary" href="#">{{ $tag->name }}</a>
+                    @endforeach
+                </div>
+                <hr>
+                <h6 class="sidebar-title">About</h6>
+                <p class="small-3">TheSaaS is a responsive, professional, and multipurpose SaaS, Software, Startup and WebApp landing template powered by Bootstrap 4. TheSaaS is a powerful and super flexible tool for any kind of landing pages.</p>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+@endsection
+
